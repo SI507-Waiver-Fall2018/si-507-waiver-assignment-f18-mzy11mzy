@@ -59,37 +59,42 @@ for word,tag in tag_ls:
 	if tag in ('JJ', 'JJR', 'JJS'):
 		adj_ls.append((word,tag))
 
-
-verb_counts = Counter(word for word,tag in verb_ls)
-verb_counts = sorted(verb_counts.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
+verb_num = Counter(word for word,tag in verb_ls)
+verb_num = sorted(verb_num.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
 verb_list = []
-for verb, count in verb_counts[0:5]:
-	count = str(count)
-	verb = verb + "(" + count + ")"
+for verb, num in verb_num[0:5]:
+	num = str(num)
+	verb = verb + "(" + num + ")"
 	verb_list.append(verb)
 verbs = " ".join(verb_list)
 
-noun_counts = Counter(word for word,tag in noun_ls)
-noun_counts = sorted(noun_counts.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
+noun_num = Counter(word for word,tag in noun_ls)
+noun_num = sorted(noun_num.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
 noun_list = []
-for noun, count in noun_counts[0:5]:
-	count = str(count)
-	noun = noun + "(" + count + ")"
+for noun, num in noun_num[0:5]:
+	num = str(num)
+	noun = noun + "(" + num + ")"
 	noun_list.append(noun)
 nouns = " ".join(noun_list)
 
-adj_counts = Counter(word for word,tag in adj_ls)
-adj_counts = sorted(adj_counts.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
+adj_num = Counter(word for word,tag in adj_ls)
+adj_num = sorted(adj_num.items(), key=lambda x: (-x[1],x[0].casefold()), reverse=False)
 adj_list = []
-for adj, count in adj_counts[0:5]:
-	count = str(count)
-	adj = adj + "(" + count + ")"
+for adj, num in adj_num[0:5]:
+	num = str(num)
+	adj = adj + "(" + num + ")"
 	adj_list.append(adj)
 adjs = " ".join(adj_list)
 
+#myFile = open('/Users/mazhiyi/Documents/GitHub/si-507-waiver-assignment-f18-mzy11mzy/noun_data.csv', 'w')
+myFile = open('noun_data.csv', 'w')
+with myFile as csv_file:
+	csv_output = csv.writer(csv_file)
+	csv_output.writerow(['Noun', 'Number'])
+	csv_output.writerows(noun_num[0:5])
+
 print("USER: ",user_name)
 print("TWEETS ANALYZED: ", tweet_num)
-
 print("VERBS: ", verbs)
 print("NOUNS: ", nouns)
 print("ADJECTIVES: ", adjs)
@@ -97,10 +102,3 @@ print("ORIGINAL TWEETS: ", len(original_tweet_ls))
 print("TIMES FAVORITED (ORIGINAL TWEETS ONLY): ", favorite_num)
 print("TIMES RETWEETED (ORIGINAL TWEETS ONLY): ", retweet_num)
 
-myFile = open('/Users/mazhiyi/Documents/GitHub/si-507-waiver-assignment-f18-mzy11mzy/noun_data.csv', 'w')
-#myFile = open('noun_data.csv', 'w')
-
-with myFile as csv_file:
-	csv_output = csv.writer(csv_file)
-	csv_output.writerow(['Noun', 'Number'])
-	csv_output.writerows(noun_counts[0:5])
