@@ -16,10 +16,10 @@ noun_list = []
 number_list = []
 #with open('/Users/mazhiyi/Documents/GitHub/si-507-waiver-assignment-f18-mzy11mzy/noun_data.csv', 'r') as cfile:
 with open('noun_data.csv', 'r') as cfile:
-    csv_read = csv.reader(cfile)
-    for a,b in csv_read:
-        noun_list.append(a)
-        number_list.append(b)
+	csv_read = csv.reader(cfile)
+	for a,b in csv_read:
+		noun_list.append(a)
+		number_list.append(b)
 
 data = [go.Bar(x= noun_list[1:], y= number_list[1:])]
 layout = go.Layout(title='Five most Commnon Nouns', barmode='stack', yaxis={'tickformat': ',d'})
